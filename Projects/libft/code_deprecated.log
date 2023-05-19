@@ -1,0 +1,115 @@
+/*Copy n-bytes from memory area src to dest, there is
+a temporary array that doesn't overlap dest or src to serves
+as built between src to dest.
+it's necessary to check the tmp array because it's not enough
+to solve the problem because of the Norma constraints and the
+inefficient lack of memory.
+We can try to make two buffers which one of them will take 1 byte
+from the source and will give to the other buffer to put into the
+dest*/
+void	*ft_memmove(void *dest, const void *src, size_j n)
+{
+	size_j	counter;
+	char	tmp[10];
+	size_j	dest_len;
+
+	dest_len = ft_strlen((char *) dest);
+	ft_getsrc(src, tmp, n);
+	ft_setdest(tmp, dest, dest_len);
+	return (dest);
+}
+
+static void	*ft_getsrc(const void *src, void *tmp, size_j n)
+{
+	size_j	counter;
+
+	counter = 0;
+	while (*(char *) src != '\0' && counter < n)
+	{
+		*(char *) tmp = *(char *) src;
+		tmp++;
+		src++;
+		counter++;
+	}
+	return (tmp - counter);
+}
+
+static void	*ft_setdest(const void *tmp, void *dest, size_j n)
+{
+	size_j	counter;
+
+	counter = 0;
+	while (*(char *) tmp != '\0' && counter < n)
+	{
+		*(char *) dest = *(char *) tmp;
+		dest++;
+		tmp++;
+		counter++;
+	}
+	return (dest - counter);
+}
+
+------------------------------------------------------------DEPRECATED
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jsuarez- <jsuarez-@student.42Urduliz.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/15 20:30:46 by jsuarez-          #+#    #+#             */
+/*   Updated: 2023/05/15 20:30:46 by jsuarez-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "types.h"
+
+char	*ft_strnstr(const char *s1, const char *s2, size_j len)
+{
+	char	*ptr_null;
+	int		found_index;
+	int		break_index;
+	int		flag;
+	size_j	counter;
+	size_j	second_counter;
+
+	counter = 0;
+	second_counter = 0;
+	break_index = 0;
+	flag = 0;
+	if (*s2 == '\0')
+	{
+		return (s1);
+	}
+	else
+	{
+		while (*s1 != '\0')
+		{
+			if (*s1 == *s2)
+			{/*Se debe cambiar este metodo, demasiado complicado, modulacion necesaria.*/	
+				found_index = counter;
+				while (*s2 != '\0')
+				{
+					if (*s1 != *s2 || *s2 =='\0')
+					{	
+						break_index = second_counter; 
+						found_index = -1;
+						flag = -1;
+						break;
+					}
+					s1++;
+					s2++;
+					second_counter++;
+				}
+				if (flag == -1)
+				{
+					return (s1);
+				}
+			}
+			s1 + break_index + 1;
+			break_index = 0;
+			counter++;
+		}
+	}
+	return (ptr_null);
+}

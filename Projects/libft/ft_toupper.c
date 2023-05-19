@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsuarez- <jsuarez-@student.42Urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/05 16:45:02 by jsuarez-          #+#    #+#             */
-/*   Updated: 2023/05/05 16:45:02 by jsuarez-         ###   ########.fr       */
+/*   Created: 2023/05/15 17:41:21 by jsuarez-          #+#    #+#             */
+/*   Updated: 2023/05/15 17:41:21 by jsuarez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*Revisar*/
-#include "types.h"
+/*Verifiying left*/
+int	ft_toupper(int c)
+{	
+	int	dif_alpha;
 
-void	ft_bzero(void *s, size_j n)
-{
-	int	counter;
-
-	counter = 0;
-	while (counter < n)
+	dif_alpha = 'a' - 'A';
+	if ('a' <= c && c <= 'z')
 	{
-		*(int *)s = '\0';
-		counter++;
-		s++;
+		return (c - dif_alpha);
 	}
+	return (c);
 }

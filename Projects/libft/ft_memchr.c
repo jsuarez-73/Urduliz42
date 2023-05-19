@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsuarez- <jsuarez-@student.42Urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/05 16:45:02 by jsuarez-          #+#    #+#             */
-/*   Updated: 2023/05/05 16:45:02 by jsuarez-         ###   ########.fr       */
+/*   Created: 2023/05/15 20:04:40 by jsuarez-          #+#    #+#             */
+/*   Updated: 2023/05/15 20:04:40 by jsuarez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*Revisar*/
-#include "types.h"
+/*Verifying left, put on eye in (unsigned char) c*/
 
-void	ft_bzero(void *s, size_j n)
+#include	"types.h"
+
+void	*ft_memchr(const void *s, int c, size_j n)
 {
-	int	counter;
+	size_j	counter;
+	void	*ptr_null;
 
 	counter = 0;
 	while (counter < n)
 	{
-		*(int *)s = '\0';
-		counter++;
-		s++;
+		if (*(unsigned char *) s == (unsigned char) c)
+		{
+			return (s);
+		}
 	}
+	return (ptr_null);
 }

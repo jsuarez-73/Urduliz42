@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsuarez- <jsuarez-@student.42Urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/05 16:45:02 by jsuarez-          #+#    #+#             */
-/*   Updated: 2023/05/05 16:45:02 by jsuarez-         ###   ########.fr       */
+/*   Created: 2023/05/15 20:23:49 by jsuarez-          #+#    #+#             */
+/*   Updated: 2023/05/15 20:23:49 by jsuarez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*Revisar*/
-#include "types.h"
+/*Verifying left*/
+#include	"types.h"
 
-void	ft_bzero(void *s, size_j n)
+int	ft_memcmp(const void *s1, const void *s2, size_j n)
 {
-	int	counter;
+	size_j	counter;
 
 	counter = 0;
 	while (counter < n)
 	{
-		*(int *)s = '\0';
+		if (*(unsigned char *) s1 != *(unsigned char *) s2)
+		{
+			if (*(unsigned char *) s1 - *(unsigned char *) s2 > 0)
+			{
+				return (1);
+			}
+			return (-1);
+		}
 		counter++;
-		s++;
+		s1++;
+		s2++;
 	}
+	return (0);
 }

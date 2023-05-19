@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsuarez- <jsuarez-@student.42Urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/05 16:45:02 by jsuarez-          #+#    #+#             */
-/*   Updated: 2023/05/05 16:45:02 by jsuarez-         ###   ########.fr       */
+/*   Created: 2023/05/15 19:53:07 by jsuarez-          #+#    #+#             */
+/*   Updated: 2023/05/15 19:53:07 by jsuarez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*Revisar*/
+/*Verifying left*/
 #include "types.h"
 
-void	ft_bzero(void *s, size_j n)
+int	ft_strncmp(const char *s1, const char *s2, size_j n)
 {
-	int	counter;
-
-	counter = 0;
-	while (counter < n)
+	while (*s1 != '\0' && *s2 != '\0')
 	{
-		*(int *)s = '\0';
-		counter++;
-		s++;
+		if (*s1 != *s2)
+		{
+			if (*s1 - *s2 > 0)
+			{
+				return (1);
+			}
+			return (-1);
+		}
+		s1++;
+		s2++;
 	}
+	return (0);
 }

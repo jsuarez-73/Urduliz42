@@ -1,0 +1,309 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef unsigned int    size_j;
+int	ft_atoi(const char *);
+int	ft_makeint(const char *, const char *);
+int	ft_isdigit(int);
+
+int main()
+{
+    char    str[20] = "-1232adsasdsa";
+    int     number;
+    int     number2;
+    
+    number = ft_atoi(str);
+    number2 = atoi(str);
+    printf("%d\n", number);
+    printf("%d\n", number2);
+    return 0;
+}
+
+int	ft_atoi(const char *s1)
+{	
+	size_j	counter;
+	char	*offset;
+
+	counter = 0;
+	while (*s1 != '\0')
+	{
+		if (ft_isdigit(*s1) == 0 && *s1 != '-' || *s1 == '+')
+		{
+			if (counter == 0)
+			{
+				return (0);
+			}
+			return (ft_makeint(offset, s1 - 1));
+		}
+		else
+		{
+			if (counter == 0)
+			{
+				offset = (char *) s1;
+			}
+			counter++;
+		}
+		s1++;
+	}
+}
+
+int	ft_makeint(const char *offset, const char *endup)
+{	
+	size_j	counter;
+	int		number;
+
+	counter = 1;
+	number = 0;
+	while (endup >= offset)
+	{
+	    if (*endup == '-')
+	    {
+	        (*(endup + 1) << 7) || (10000000); 
+	    }
+		number += counter * (*endup - '0');
+		
+		counter *= 10;
+		endup--;
+	}
+	return (number);
+}
+
+int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+	{
+		return (1);
+	}
+	return (0);
+}
+
+------------------------------------------------------------------------------------OTHER ONE
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+
+void    *ft_memmove(void *, const void *, unsigned int);
+
+int main()
+{
+    char    src[] = "this is a Sttring overlaping";
+    
+    ft_memmove(src, src + 6, 10);
+    printf("%s\n", src);
+    return 0;
+}
+
+void    *ft_memmove(void *dest, const void *src, unsigned int n)
+{       
+        int     counter;
+        
+        counter = 0;
+        if (dest > src)
+        {
+            while (n--)
+            {
+                *(char *) (dest + n) = *(char *) (src + n);
+            }
+        }
+        else
+        {
+            while (counter < n)
+            {
+                *(char *) (dest++) = *(char *) (src++);
+                counter++;
+            }
+        }
+        return (dest);
+}
+-------------------------------------------------------------------------------------OTHER ONE
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+typedef	unsigned int	size_j;
+void	ft_bzero(void *, size_j);
+int     ft_isalnum(int);
+int	    ft_isalpha(int);
+int	    ft_isascii(int);
+int	    ft_isdigit(int);
+int	    ft_isprint(int);
+void	*ft_memcpy(void *restrict, const void *restrict, size_j);
+void	*ft_memset(void *, int, size_j);
+size_j	ft_strlen(const char *);
+void    *ft_memmove(void *, const void *, size_j);
+void	*ft_getsrc(const void *, void *, size_j);
+void    *ft_setdest(const void *, void *, size_j);
+
+int	main(void)
+{
+	char	src[] = "aabbcc";
+
+	ft_memmove(src + 2, src, 2);
+
+	write(0, src, 7);
+    write(0, "Estamos en main", 15);
+	return (0);
+}
+
+void	*ft_memmove(void *dest, const void *src, size_j n)
+{
+    size_j  size_src;
+    size_j  size_dest;
+    
+    size_src = ft_strlen((char *) src);
+    size_dest = ft_strlen((char *) dest);
+    char    tmp[10000];
+	ft_getsrc(src, tmp, n);
+	ft_setdest(tmp, dest, size_dest);
+	return (dest);
+}
+
+void	*ft_getsrc(const void *src, void *tmp, size_j n)
+{
+	size_j	counter;
+	int     flag;
+
+	counter = 0;
+	while (*(char *) src != '\0' && counter < n)
+	{
+		*(char *) tmp = *(char *) src;
+		tmp++;
+		src++;
+		counter++;
+	}
+	flag = 1;
+	return (tmp);
+}
+
+void	*ft_setdest(const void *tmp, void *dest, size_j n)
+{
+	size_j	counter;
+	int flag;
+    
+	counter = 0;
+	while (*(char *) tmp != '\0' && counter < n)
+	{   
+		*(char *) dest = *(char *) tmp;
+		dest++;
+		tmp++;
+		counter++;
+	}
+	return (dest);
+}
+
+size_j	ft_strlen(const char *s)
+{
+	int	counter;
+	char    *p;
+	int     flag;
+
+	counter = 0;
+	while (*s != '\0')
+	{
+		counter++;
+		s++;
+	}
+
+    flag = 1;
+	return (counter);
+}
+
+--------------------------------------------------------------------------------------OTHER ONE
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+typedef	unsigned int	size_j;
+void	ft_bzero(void *, size_j);
+int     ft_isalnum(int);
+int	    ft_isalpha(int);
+int	    ft_isascii(int);
+int	    ft_isdigit(int);
+int	    ft_isprint(int);
+void	*ft_memcpy(void *restrict, const void *restrict, size_j);
+void	*ft_memset(void *, int, size_j);
+size_j	ft_strlen(const char *);
+void    *ft_memmove(void *, const void *, size_j);
+void	*ft_getsrc(const void *, void *, size_j);
+void    *ft_setdest(const void *, void *, size_j);
+size_j	ft_strlcat(char *, const char *, size_j);
+
+int	main(void)
+{   
+    size_j  counted;
+	char	src[] = "this is a long string";
+    char    dest[20];//si le reservo menos espacio de memoria, este puede
+                    //sobreescribir en espacios de memorias ajenos de otras variables
+                    //como lo podia presenciar en src cuando el tamaño era dest[15]
+    
+	counted = ft_strlcat(dest, src, 20);
+    
+    printf("%s\n", dest);
+    printf("%s\n", src);
+    printf("%d\n", counted);
+	//write(0, dest, 12);
+    write(0, "Estamos en main", 15);
+	return (0);
+}
+
+size_j	ft_strlcat(char *dest, const char *src, size_j n)
+{
+	size_j	counter;
+	size_j  size_free;
+	size_j  size_dest;
+
+	counter = 0;
+	size_dest = ft_strlen(dest);
+	size_free = n - size_dest;
+	dest += size_dest;
+	while (counter < size_free)
+	{
+		*dest = *src;
+		dest++;
+		src++;
+		counter++;
+	}
+	*dest = '\0';
+	return (counter);
+}
+
+size_j	ft_strlen(const char *s)
+{
+	int	counter;
+
+	counter = 0;
+	while (*s != '\0')
+	{
+		counter++;
+		s++;
+	}
+	return (counter);
+}

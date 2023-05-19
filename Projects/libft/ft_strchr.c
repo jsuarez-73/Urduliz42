@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsuarez- <jsuarez-@student.42Urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/05 16:45:02 by jsuarez-          #+#    #+#             */
-/*   Updated: 2023/05/05 16:45:02 by jsuarez-         ###   ########.fr       */
+/*   Created: 2023/05/15 17:50:23 by jsuarez-          #+#    #+#             */
+/*   Updated: 2023/05/15 17:50:23 by jsuarez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*Revisar*/
-#include "types.h"
+/*Verifying left.*/
+char	*ft_strchr(const char *s, int c)
+{	
+	char	*f_found;
 
-void	ft_bzero(void *s, size_j n)
-{
-	int	counter;
-
-	counter = 0;
-	while (counter < n)
+	while (*s != '\0')
 	{
-		*(int *)s = '\0';
-		counter++;
+		if (*s == c)
+		{
+			f_found = s;
+			return (f_found);
+		}
 		s++;
 	}
+	return (c);
 }

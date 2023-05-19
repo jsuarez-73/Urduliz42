@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsuarez- <jsuarez-@student.42Urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/05 16:45:02 by jsuarez-          #+#    #+#             */
-/*   Updated: 2023/05/05 16:45:02 by jsuarez-         ###   ########.fr       */
+/*   Created: 2023/05/15 17:46:45 by jsuarez-          #+#    #+#             */
+/*   Updated: 2023/05/15 17:46:45 by jsuarez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*Revisar*/
-#include "types.h"
-
-void	ft_bzero(void *s, size_j n)
+/*Verifying left*/
+int	ft_tolower(int c)
 {
-	int	counter;
+	int	dif_alpha;
 
-	counter = 0;
-	while (counter < n)
+	dif_alpha = 'a' - 'A';
+	if ('A' <= c && c <= 'Z')
 	{
-		*(int *)s = '\0';
-		counter++;
-		s++;
+		return (c + dif_alpha);
 	}
+	return (c);
 }

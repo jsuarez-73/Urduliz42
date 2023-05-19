@@ -1,27 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsuarez- <jsuarez-@student.42Urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/05 16:45:02 by jsuarez-          #+#    #+#             */
-/*   Updated: 2023/05/05 16:45:02 by jsuarez-         ###   ########.fr       */
+/*   Created: 2023/05/15 17:57:27 by jsuarez-          #+#    #+#             */
+/*   Updated: 2023/05/15 17:57:27 by jsuarez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*Revisar*/
-#include "types.h"
+/*Verifying Left*/
+#include	"types.h"
 
-void	ft_bzero(void *s, size_j n)
+char	*ft_strrchr(const char *s, int c)
 {
-	int	counter;
+	char	*l_found;
+	size_j	counter;
+	size_j	index;
 
 	counter = 0;
-	while (counter < n)
+	index = 0;
+	while (*s != '\0')
 	{
-		*(int *)s = '\0';
+		if (*s == c)
+		{
+			index = counter;
+			l_found = s;
+		}
 		counter++;
 		s++;
 	}
+
+	if (index != 0)
+	{
+		return (l_found + index);
+	}
+	return (c);
 }
