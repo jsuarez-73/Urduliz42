@@ -11,27 +11,32 @@
 /* ************************************************************************** */
 
 #include "types.h"
-/*The calloc() function allocates memory for an array of nmemb
-       elements of size bytes each and returns a pointer to the
-       allocated memory.  The memory is set to zero.  If nmemb or size
-       is 0, then calloc() returns either NULL, or a unique pointer
-       value that can later be successfully passed to free().  If the
-       multiplication of nmemb and size would result in integer
-       overflow, then calloc() returns an error. */
+#include <stdlib.h>
+/*Verified*/
+/*Debemos verificar que la arquitectura es x64 o x32, para tal caso
+asignar en que valor ocurriría el overflow, y así establecer MIN y MAX*/
 void	*ft_calloc(size_j nmemb, size_j size)
 {
-	size_j	totalmem;
+	void	*res;
+	size_j	memsize;
 
-	totalmem = nmemb * size;
-	if (totalmem == 0)
+	memsize = nmemb * size;
+	if (size == 0 || nmemb == 0)
 	{
-		return 0;
+		return ((void *)0);
 	}
-	else if (nmemb >= 1231231)
+	else if (nmemb > (MAX / size))
 	{
-		//In case overflow.
-		return "errorno";
+		return ((void *)-1);
 	}
-	return (malloc(totalmem));
-
+	res = malloc(memsize);
+	if (res != (void *)0)
+	{
+		while (memsize--)
+		{
+			*(char *)(res + memsize) = 0;
+		}
+		return (res);
+	}
+	return ((void *)0);
 }

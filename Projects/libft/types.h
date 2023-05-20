@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 /*Revisar como se crean los headers*/
+#define MAX_X64_U 1844674407370955165
+#define MAX_X32_U 4294967295
 typedef	unsigned int	size_j;
 void	ft_bzero(void *, size_j);
 int	ft_isalnum(int);
