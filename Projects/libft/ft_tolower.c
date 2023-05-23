@@ -10,15 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*Verifying left*/
 int	ft_tolower(int c)
 {
-	int	dif_alpha;
-
-	dif_alpha = 'a' - 'A';
 	if ('A' <= c && c <= 'Z')
 	{
-		return (c + dif_alpha);
+		return (c + 'a' - 'A');
 	}
 	return (c);
 }

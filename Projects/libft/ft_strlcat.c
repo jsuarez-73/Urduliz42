@@ -15,20 +15,14 @@
 size_j	ft_strlcat(char *dest, const char *src, size_j n)
 {
 	size_j	counter;
-	size_j	size_free;
-	size_j	size_dest;
 
-	counter = 0;
-	size_dest = ft_strlen(dest);
-	size_free = n - size_dest;
-	dest += size_dest;
-	while (counter < size_free)
+	counter = ft_strlen(dest);
+	while (counter < n)
 	{
-		*dest = *src;
-		dest++;
+		*(dest + counter) = *src;
 		src++;
 		counter++;
 	}
-	*dest = '\0';
+	*(dest + counter) = '\0';
 	return (counter);
 }

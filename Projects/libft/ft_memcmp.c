@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*Verifying left*/
 #include	"types.h"
 
 int	ft_memcmp(const void *s1, const void *s2, size_j n)
@@ -24,9 +23,9 @@ int	ft_memcmp(const void *s1, const void *s2, size_j n)
 		{
 			if (*(unsigned char *) s1 - *(unsigned char *) s2 > 0)
 			{
-				return (1);
+				return (counter);
 			}
-			return (-1);
+			return (-counter);
 		}
 		counter++;
 		s1++;

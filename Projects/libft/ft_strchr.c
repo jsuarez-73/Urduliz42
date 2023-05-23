@@ -10,19 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*Verifying left.*/
 char	*ft_strchr(const char *s, int c)
 {	
-	char	*f_found;
-
 	while (*s != '\0')
 	{
 		if (*s == c)
 		{
-			f_found = s;
-			return (f_found);
+			return ((char *)s);
 		}
 		s++;
 	}
-	return (c);
+	if (c == 0)
+		return ((char *)s);
+	return ((void *)0);
 }

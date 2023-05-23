@@ -14,14 +14,9 @@
 
 void	*ft_memset(void *s, int c, size_j n)
 {
-	size_j	counter;
-
-	counter = 0;
-	while (counter < n)
+	while (n--)
 	{
-		*(int *) s = c;
-		s++;
-		counter++;
+		*(int *)(s + n) = c;
 	}
-	return (s - counter);
+	return (s);
 }

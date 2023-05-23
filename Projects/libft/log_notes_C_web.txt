@@ -1,4 +1,178 @@
+/******************************************************************************
 
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+#include <strings.h>
+#include <ctype.h>
+#include <string.h>
+#include <bsd/string.h>
+
+typedef unsigned int    size_j;
+char	*ft_strnstr(const char *, const char *, size_j);
+
+int main()
+{
+    char    s2[20] = "is tha";
+    char    s1[30] = "this is tha string one";
+    printf("owned: %p", ft_strnstr(s1, s2, 20));
+    return 0;
+}
+//s2 == little, s1 == big, no more than n-bytes are searched.
+//Characters that appear after '\0' are not searched
+//if little is empty, return big.
+//if little ocurrs nowhere, return NULL
+//successed, return the first character from the first ocurrence.
+char	*ft_strnstr(const char *s1, const char *s2, size_j n)
+{
+    size_j  counter;
+   //Esta verificado y funciona correctamente, sin embargo, la cantidad
+   //maxima de lineas permitidas están excedidas, averiguar la manera
+   //de hacerlo más pequeño. 
+    counter = 0;
+    if (*s2 == '\0')
+        return ((char *)s1);
+    while (*s1 != '\0' && *s2 != '\0' && n--)
+    {
+        if (*s1 == *s2)
+        {   
+            s1++;
+            counter++;
+            while(n-- && *s2 != '\0' && *s1 != '\0')
+            {
+                if (*s1 == *(s2 + counter))
+                {
+                    s1++;
+                    counter++;                    
+                }
+                else
+                {  
+                    s1--;
+                   break; 
+                }
+            }
+            if (*(s2 + counter) == '\0')
+                return ((char *)(s1 - counter + 1));
+        }
+        counter = 0;
+        s1++;
+    }
+	return ((void *)0);
+}
+---------------------------------------------------------------------------OTHER ONE: ft_strnstr.c
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+#include <strings.h>
+#include <ctype.h>
+#include <string.h>
+#include <bsd/string.h>
+
+typedef unsigned int    size_j;
+size_j	ft_strlcat(char *, const char *, size_j);
+size_j	ft_strlen(const char *);
+size_j	ft_strlcpy(char *, const char *, size_j);
+
+int main()
+{
+    char    s1[] = "this is the string one,";
+    char    s2[20] = "this is ";
+    char    s3[20];
+    printf("value inside the array %d\n", *(s2 + 21));
+    printf("initial position %p y %s\n", s1, s2);
+    printf("owned: %d y dest: %s\n", ft_strlcat(s2, s1, 20), s2);
+    printf("result: %s\n", s2);
+    return 0;
+}
+
+size_j	ft_strlcpy(char *dest, const char *src, size_j n)
+{
+	size_j	counter;
+
+	counter = 0;
+	while (counter < n && *src != '\0')
+	{
+		*(dest + counter) = *(src + counter);
+        counter++;
+	}
+	*(dest + counter) = '\0';
+	return (counter);
+}
+
+size_j	ft_strlcat(char *dest, const char *src, size_j n)
+{
+	size_j	counter;
+	size_j	size_free;
+	size_j	size_dest;
+	size_j  size_src;
+
+
+	size_dest = ft_strlen(dest);
+	size_free = n - size_dest;
+	if (size_free > 0)
+	{
+	    counter = ft_strlcpy((dest + size_dest), src, size_free);
+	}
+	*(dest + size_dest + size_free + 1) = '\0';
+	return (counter);
+}
+
+size_j	ft_strlen(const char *s)
+{
+	int	counter;
+
+	counter = 0;
+	while (*s != '\0')
+	{
+		counter++;
+		s++;
+	}
+	return (counter);
+}
+--------------------------------------------------------------------OTHER ONE: strlcat & strlcpy
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+#include <strings.h>
+#include <ctype.h>
+
+typedef unsigned int    size_j;
+int	ft_isalnum(int);
+
+int main()
+{
+    char    c1 = 'A';
+    printf("original: %d, owned: %d", isalnum(c1), ft_isalnum(c1));
+    return 0;
+}
+
+int	ft_isalnum(int c)
+{
+	if (c >= '0' && c <= '9' || c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z')
+	{
+		return (1);
+	}
+	return (0);
+}
+
+
+_____________________________________________________________OTHER ONE : VERIFIYING Ft_ISALNUM.C
 /******************************************************************************
 
                             Online C Compiler.
@@ -56,6 +230,7 @@ void	*ft_calloc(size_j nmemb, size_j size)
 	return (malloc(totalmem));
 
 }
+aaaaaaaaaaaaaaaaaaaa
 -------------------------------------------------------------------------OTHER ONE, CALLOC
 /******************************************************************************
 

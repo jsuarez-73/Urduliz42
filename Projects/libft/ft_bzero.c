@@ -10,18 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*Revisar*/
 #include "types.h"
 
 void	ft_bzero(void *s, size_j n)
 {
-	int	counter;
-
-	counter = 0;
-	while (counter < n)
+	while (n--)
 	{
-		*(int *)s = '\0';
-		counter++;
-		s++;
+		*(char *)(s + n) = '\0';
 	}
 }

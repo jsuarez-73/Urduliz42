@@ -10,36 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*Verifying left, function has more than 25 lines*/
 #include "types.h"
 
 char	*ft_strnstr(const char *s1, const char *s2, size_j n)
 {
-	size_j	c;
+	size_j	counter;
 
-	c = 1;
+	counter = 1;
 	if (*s2 == '\0')
-		return ((char *) s1);
-	while (*s1 != '\0')
+		return ((char *)s1);
+	while (n-- && *s1 != '\0' && *s2 != '\0')
 	{
 		if (*s1 == *s2)
 		{
-			while (c <= n)
+			while (n-- && *s2 != '\0' && *s1 != '\0')
 			{
-				if (*(s2 + c) != *(s1 + c) && c != n && *(s2 + c) != '\0')
+				if (*(s1 + counter) != *(s2 + counter))
 				{
-					c++;
 					break ;
 				}
-				else
-				{
-					if (c == n)
-						return (*s1);
-				}
-				c ++;
+				counter++;
 			}
+			if (*(s2 + counter) == '\0')
+				return ((char *)s1);
 		}
-		s1 += c;
-		c = 1;
+		s1 += counter;
+		counter = 1;
 	}
+	return ((void *)0);
 }

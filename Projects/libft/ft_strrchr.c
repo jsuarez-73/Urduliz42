@@ -10,31 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*Verifying Left*/
 #include	"types.h"
 
 char	*ft_strrchr(const char *s, int c)
 {
 	char	*l_found;
 	size_j	counter;
-	size_j	index;
 
 	counter = 0;
-	index = 0;
 	while (*s != '\0')
 	{
-		if (*s == c)
+		if (*s == (char)c)
 		{
-			index = counter;
-			l_found = s;
+			l_found = (char *)s;
 		}
 		counter++;
 		s++;
 	}
 
-	if (index != 0)
+	if (l_found != (void *)0)
 	{
-		return (l_found + index);
+		return (l_found);
 	}
-	return (c);
+	return ((void *)0);
 }

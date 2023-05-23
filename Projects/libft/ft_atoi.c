@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "types.h"
-/*Verified*/
+
 int	ft_atoi(const char *s1)
 {	
 	size_j	counter;

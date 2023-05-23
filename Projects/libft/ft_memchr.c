@@ -10,22 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*Verifying left, put on eye in (unsigned char) c*/
-
 #include	"types.h"
 
 void	*ft_memchr(const void *s, int c, size_j n)
 {
-	size_j	counter;
-	void	*ptr_null;
-
-	counter = 0;
-	while (counter < n)
+	while (n--)
 	{
 		if (*(unsigned char *) s == (unsigned char) c)
 		{
-			return (s);
+			return ((void *)s);
 		}
+		s++;
 	}
-	return (ptr_null);
+	return ((void *)0);
 }
