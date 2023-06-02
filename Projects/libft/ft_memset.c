@@ -11,12 +11,12 @@
 /* ************************************************************************** */
 
 #include "types.h"
-
+/*Verified*/
 void	*ft_memset(void *s, int c, size_j n)
-{
+{	
 	while (n--)
 	{
-		*(int *)(s + n) = c;
+		*((char *)s + n) = (unsigned char)c;
 	}
 	return (s);
 }

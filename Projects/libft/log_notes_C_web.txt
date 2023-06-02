@@ -1,3 +1,315 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+typedef unsigned int    size_j;
+
+char	**ft_split(char const *, char);
+char    **ft_addsplit(char**, char *, char *);
+char    *ft_unitsplit(const char *, const char *);
+char    **ft_splitset(char  **, const char  *, size_j);
+
+int     main(void)
+{
+    char    prueba[] = "Esteuneeeeeeeeeeeeestringeedeeeeeeeeeeeeeeeeeeeeeeeeeprueba";
+    //para este caso el String falla, reparar!
+    char    **response;
+    char    *response_strtok;
+    char    *dlim = "e";
+    //response_strtok = strtok(prueba, dlim);
+    //printf("valor original: %s\n", response_strtok);
+    response = ft_split(prueba, 'e');
+    if (response == 0)
+    {
+        printf("response es null");
+    }
+    else
+    {
+        printf("puntero: %p, primer valor:%s\n", *(response + 5), *(response + 5));
+        
+        if (*(response + 3) == 0)
+        {
+            printf("response 3 es NULL");
+        }
+        else
+        {
+            printf("response 3 no es NULL");
+        }
+    }
+}
+
+char	**ft_split(char const *s, char c)
+{   
+    char    *diff_end;
+    char    *offset;
+    size_j  counter;
+    short   flag;
+    char    **splitted;
+    
+    counter = 0;
+    flag = 0;
+    splitted = (char **)0;
+    while (*(s + counter) != '\0')
+    {
+        if (*(s + counter) != c)
+        {   
+            if (flag == 0)
+            {
+                offset = (char *)s + counter;
+                flag = 1;
+            }
+            counter++;
+            while (*(s + counter) != c && *(s+ counter) != '\0')
+            {
+                counter++;
+            }
+            if (flag == 1)
+            {
+                diff_end = (char *)s + counter;
+                flag = 0;
+                splitted = ft_addsplit(splitted, offset, diff_end);
+            }
+        }
+        else
+        {
+            if (flag == 1)
+            {
+                diff_end = (char *)s + counter;
+                splitted = ft_addsplit(splitted, offset, diff_end);
+            }
+            counter++;
+            while (*(s + counter) == c && *(s + counter) != '\0')
+            {
+                counter++;
+            }
+            offset = (char *)s + counter;
+            flag = 1;
+        }
+        counter++;
+    }
+    return (splitted);
+}
+
+char    **ft_addsplit(char** splitset, char *offset, char *diff_end)
+{
+    static size_j  nelem;
+    char    *tmp_splitset;
+    
+    nelem++;
+    tmp_splitset = ft_unitsplit(offset, diff_end);
+    if (tmp_splitset != 0)
+    {
+        splitset = ft_splitset(splitset, tmp_splitset, nelem);
+        if (splitset != 0)
+        {
+            return (splitset);
+        }
+        return ((char **)0);
+    }
+    return ((char **)0);
+}
+
+char    **ft_splitset(char  **splitset, const char  *tmp_splitset, size_j nelem)
+{
+        char    **tmp;
+
+        if (nelem == 1)
+        {
+            splitset = (char **)malloc(sizeof(char *));
+            if (splitset != 0)
+            {
+                *splitset = (char *)tmp_splitset;
+                return (splitset);
+            }
+            return ((char **)0);
+        }
+        else
+        {
+            tmp = (char **)malloc(sizeof(char *) * (nelem + 1));
+            if (tmp != 0)
+            {   
+                *(tmp + (nelem--)) = (char *)0;
+                *(tmp + nelem) = (char *)tmp_splitset;
+                while (nelem--)
+                {
+                    *(tmp + nelem) = *(splitset + nelem);
+                }
+                free(splitset);
+                return(tmp);
+            }
+            return ((char **)0);
+        }
+}
+
+char    *ft_unitsplit(const char *offset, const char *diff_end)
+{
+    char    *memsetted;
+    size_j  diff_mem;
+    
+    diff_mem = diff_end - offset + 1;
+    memsetted = (char *)malloc(sizeof(char) * (diff_mem));
+    if (memsetted != 0)
+    {   
+        *(memsetted + (--diff_mem)) = '\0';
+        while (diff_mem--)
+        {
+            diff_end--;
+            *(memsetted + diff_mem) = *diff_end;
+        }
+        return (memsetted);
+    }
+    return ((void *)0);
+}
+FUNCIONA PERFECTAMENTE, ARRAY TERMINA EN NULL
+DEMASIADO EXTENSO
+FALLA AL NO ENCONTRAR OCURRENCIES DEVUELVE TODO EL STRING.
+FALLA AL ESTABLECER UN STRING COMO: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeea\0
+------------------------------------------------------------------ANOTHER ONE: ft_split.c
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+typedef unsigned int    size_j;
+
+char	*ft_strchr(const char *, int);
+char	*ft_strdup(const char *);
+char	**ft_split(char const *, char);
+size_j	ft_strlen(const char *);
+void	*ft_memcpy(void *restrict, const void *restrict, size_j);
+void	*ft_memset(void *, int, size_j);
+
+int     main(void)
+{
+    char    prueba[] = "Esteeeeeeeeeeeeeeeeeeuneeeeeeeeeeeeestringeedeeeeeeeeeeeeeeeeeeeeeeeeeprueba";
+    //para este caso el String falla, reparar!
+    char    **response;
+    char    *response_strtok;
+    char    *dlim = "e";
+    response_strtok = strtok(prueba, dlim);
+    printf("valor original: %s\n", response_strtok);
+    response = ft_split(prueba, 'e');
+    if (response == 0)
+    {
+        printf("response es null");
+    }
+    else
+    {
+        printf("puntero: %p, primer valor:%s\n", *(response + 2), *(response + 2));
+        
+        if (*(response + 3) == 0)
+        {
+            printf("response 3 es NULL");
+        }
+        else
+        {
+            printf("response 3 no es NULL");
+        }
+    }
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	*duplicated;
+	char	**splitted;
+	size_j	n_ocurrencies;
+	size_j	counter;
+
+	duplicated = ft_strdup(s);
+	n_ocurrencies = 2;
+	counter = 0;
+	while (*s != '\0')
+	{
+		if (*s == c)
+			n_ocurrencies++;
+        s++;
+	}
+	splitted = (char **)malloc(sizeof(char *) * (n_ocurrencies));
+	if (splitted != 0 && n_ocurrencies > 2)
+	{
+		while (n_ocurrencies)
+		{
+			*(splitted + counter) = duplicated;
+			duplicated = ft_strchr(duplicated, c);
+			n_ocurrencies--;
+			if (duplicated == 0)
+			{
+			    *(splitted + counter + 1) = (char *)0;
+				break; 
+			}
+			else
+			{
+			    ft_memset(duplicated, 0, 1);
+			    duplicated++;
+			}
+			counter++;
+
+		}
+		return (splitted);
+	}
+	return ((char **)0);
+}
+
+char	*ft_strdup(const char *s)
+{
+	char	*dup;
+	size_j	s_len;
+
+	s_len = ft_strlen(s);
+	dup = (char *)malloc(s_len);
+	if (dup == (char *)0)
+	{
+		return (dup);
+	}
+	dup = (char *)ft_memcpy(dup, s, s_len);
+	return (dup);
+}
+
+char	*ft_strchr(const char *s, int c)
+{	
+	while (*s != '\0')
+	{
+		if (*s == c)
+		{
+			return ((char *)s);
+		}
+		s++;
+	}
+	if (c == 0)
+		return ((char *)s);
+	return ((void *)0);
+}
+
+size_j	ft_strlen(const char *s)
+{
+	int	counter;
+
+	counter = 0;
+	while (*s != '\0')
+	{
+		counter++;
+		s++;
+	}
+	return (counter);
+}
+
+void	*ft_memcpy(void *restrict dest, const void *restrict src, size_j n)
+{
+	while (n--)
+	{
+		*(char *)(dest + n) = *(char *)(src + n);
+	}
+	return (dest);
+}
+
+void	*ft_memset(void *s, int c, size_j n)
+{
+	while (n--)
+	{
+		*(char *)(s + n) = c;
+	}
+	return (s);
+}
+_______________________________________________________________________OTHER ONE: ft_split.c
 /******************************************************************************
 
                             Online C Compiler.
@@ -5,7 +317,7 @@
 Write your code in this editor and press "Run" button to compile and execute it.
 
 *******************************************************************************/
-
+this is the string is tha one
 #include <stdio.h>
 #include <strings.h>
 #include <ctype.h>
@@ -264,7 +576,7 @@ int main()
 int	ft_atoi(const char *s1)
 {	
 	size_j	counter;
-	char	*offset;
+	char	*duplicated;
 
 	counter = 0;
 	while (*s1 != '\0')
@@ -275,13 +587,13 @@ int	ft_atoi(const char *s1)
 			{
 				return (0);
 			}
-			return (ft_makeint(offset, s1 - 1));
+			return (ft_makeint(duplicated, s1 - 1));
 		}
 		else
 		{
 			if (counter == 0)
 			{
-				offset = (char *) s1;
+				duplicated = (char *) s1;
 			}
 			counter++;
 		}
@@ -289,14 +601,14 @@ int	ft_atoi(const char *s1)
 	}
 }
 
-int	ft_makeint(const char *offset, const char *endup)
+int	ft_makeint(const char *duplicated, const char *endup)
 {	
 	size_j	counter;
 	int		number;
 
 	counter = 1;
 	number = 0;
-	while (endup >= offset)
+	while (endup >= duplicated)
 	{
 	    if (*endup == '-')
 	    {
