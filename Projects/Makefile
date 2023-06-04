@@ -64,10 +64,9 @@ $(NAME):
 all: $(NAME)
 clean:
 		rm -f $(OBJS) $(OBJS_BONUS)
-fclean:
+fclean: clean
 		rm -f $(NAME)
-re:
-		fclean all
+re: fclean all
 bonus:
 		gcc $(FLAGS) -c $(SRCS_BONUS)
 		ar rc $(NAME) $(OBJS_BONUS)
