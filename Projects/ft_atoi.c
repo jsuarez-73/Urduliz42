@@ -3,66 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsuarez- <jsuarez-@student.42Urduliz.co    +#+  +:+       +#+        */
+/*   By: jesus <jesus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 21:43:41 by jsuarez-          #+#    #+#             */
-/*   Updated: 2023/05/17 21:43:41 by jsuarez-         ###   ########.fr       */
+/*   Updated: 2023/06/04 17:54:08 by jesus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *s1)
-{	
-	size_t	counter;
-	char	*offset;
-	int		sign;
+int	ft_atoi(const char *str)
+{
+	unsigned int	idx;
+	int				num;
+	int				sign;
 
-	sign = 0;
-	counter = 0;
-	if (*s1 == '+' || *s1 == '-')
-		sign = 1;
-	while (*s1 != '\0')
+	idx = 0;
+	num = 0;
+	sign = 1;
+	while ((str[idx] >= '\t' && str[idx] <= '\r') || str[idx] == ' ')
+		idx++;
+	if (str[idx] == '+' || str[idx] == '-')
 	{
-		if (ft_isdigit(*s1) == 0 && sign == 0)
-		{
-			if (counter == 0)
-				return (0);
-			return (ft_makeint(offset, s1 - 1));
-		}
-		else
-		{
-			if (counter == 0)
-				offset = (char *) s1;
-				sign = 0;
-			counter++;
-		}
-		s1++;
+		if (str[idx] == '-')
+			sign = -1;
+		idx++;
 	}
-}
-
-static int	ft_makeint(const char *offset, const char *endup)
-{	
-	size_t	counter;
-	int		number;
-
-	counter = 1;
-	number = 0;
-	while (endup >= offset)
+	while (str[idx] >= '0' && str[idx] <= '9')
 	{
-		if (*endup != '+')
-		{
-			if (*endup == '-')
-			{
-				number = ~number + 1;
-			}
-			else
-			{
-				number += counter * (*endup - '0');
-				counter *= 10;
-			}
-		}
-		endup--;
+		num = num * 10 + str[idx] - '0';
+		idx++;
 	}
-	return (number);
+	return (num * sign);
 }

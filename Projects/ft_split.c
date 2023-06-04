@@ -3,114 +3,90 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsuarez- <jsuarez-@student.42Urduliz.co    +#+  +:+       +#+        */
+/*   By: jesus <jesus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 20:24:19 by jsuarez-          #+#    #+#             */
-/*   Updated: 2023/05/24 20:24:19 by jsuarez-         ###   ########.fr       */
+/*   Updated: 2023/06/04 17:57:48 by jesus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 /*Verified
 Dependencies: ft_substr, ft_strlen*/
+static size_t	ft_wrdcount(const char *s, char c)
+{
+	size_t	idx;
+	size_t	t_words;
+
+	idx = 0;
+	t_words = 0;
+	while (s[idx] != '\0' && s[idx] == c)
+		idx++;
+	while (s[idx] != '\0')
+	{
+		t_words++;
+		while (s[idx] != '\0' && s[idx] != c)
+			idx++;
+		while (s[idx] != '\0' && s[idx] == c)
+			idx++;
+	}
+	return (t_words);
+}
+
+static size_t	ft_wrdlen(const char *s, char c)
+{
+	size_t	idx;
+	size_t	len;
+
+	idx = 0;
+	len = 0;
+	while (s[idx] != '\0' && s[idx] != c)
+	{
+		idx++;
+		len++;
+	}
+	return (len);
+}
+
+static char	**ft_free(char **words_lst)
+{
+	size_t	idx;
+
+	idx = 0;
+	while (words_lst[idx] != 0)
+	{
+		free(words_lst[idx]);
+		idx++;
+	}
+	free(words_lst);
+	return (NULL);
+}
+
 char	**ft_split(char const *s, char c)
 {
-	char	**sq_c;
-	size_t	sq_l;
-	size_t	counter;
-	char	**res;
+	char			**words_lst;
+	size_t			t_words;
+	size_t			w_idx;
+	size_t			w_len;
 
-	sq_c = ft_seqchr(s, c);
-	sq_l = ft_ptrlen((const char **)sq_c) / 2;
-	counter = 0;
-	res = (char **)malloc(sizeof(char *) * (sq_l + 1));
-	if (res != 0 && !(*sq_c == s && *(sq_c + 1) == (s + ft_strlen(s) - 1)))
+	if (!s)
+		return (NULL);
+	t_words = ft_wrdcount(s, c);
+	words_lst = (char **)ft_calloc(t_words + 1, sizeof(char *));
+	if (!words_lst)
+		return (NULL);
+	w_idx = 0;
+	while (w_idx < t_words)
 	{
-		while (counter < sq_l)
-		{
-			*(res + counter) = ft_substr(*sq_c, 0, *(sq_c + 1) - *sq_c + 1);
-			counter++;
-			sq_c += 2;
-		}
-		*(res + counter) = (char *)0;
-		free(sq_c - sq_l * 2);
-		return (res);
+		while (*s != '\0' && *s == c)
+		s++;
+		w_len = ft_wrdlen(s, c);
+		words_lst[w_idx] = ft_substr(s, 0, w_len);
+		if (!(words_lst[w_idx]))
+			return (ft_free(words_lst));
+		s = s + w_len;
+		w_idx++;
 	}
-	free(sq_c);
-	free(res);
-	return ((char **)0);
-}
-
-static char	**ft_seqchr(const char *s, char c)
-{
-	char	**seq;
-	int		flag;
-
-	flag = 0;
-	seq = (char **)malloc(sizeof(char *));
-	if (seq != 0)
-	{
-		while (*s != '\0')
-		{
-			ft_seqchr_validation(&seq, &s, c, &flag);
-			s++;
-		}
-		return (seq);
-	}
-	return ((void *)0);
-}
-
-static void	ft_seqchr_validation(char ***seq, const char **s, char c, int *flag)
-{
-	if (**s != c && *flag == 0 && *(*s + 1) != '\0')
-	{
-		*seq = ft_addptr(*seq, *(char **)s);
-		*flag = 1;
-	}
-	else if (**s != c && *flag == 1 && (*(*s + 1) == c || *(*s + 1) == '\0'))
-	{
-		*seq = ft_addptr(*seq, *(char **)s);
-		*flag = 0;
-	}
-	else if (**s != c && *flag == 0 && *(*s + 1) == '\0')
-	{
-		*seq = ft_addptr(*seq, *(char **)s);
-		*seq = ft_addptr(*seq, *(char **)s);
-	}
-}
-
-static char	**ft_addptr(char **seq, char *ptr)
-{
-	char	**tmp;
-	size_t	counter;
-	size_t	sq_l;
-
-	counter = 0;
-	sq_l = ft_ptrlen((const char **)seq);
-	tmp = (char **)malloc(sizeof(char *) * (sq_l + 2));
-	if (tmp != 0)
-	{
-		while (*(seq + counter) != 0)
-		{
-			*(tmp + counter) = *(seq + counter);
-			counter++;
-		}
-		*(tmp + counter++) = ptr;
-		*(tmp + counter) = (char *)0;
-		free(seq);
-		return (tmp);
-	}
-	return ((char **)0);
-}
-
-static size_t	ft_ptrlen(const char **seq)
-{
-	size_t	counter;
-
-	counter = 0;
-	while (*(seq + counter) != 0)
-	{
-		counter++;
-	}
-	return (counter);
+	words_lst[t_words] = 0;
+	return (words_lst);
 }

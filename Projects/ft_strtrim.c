@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsuarez- <jsuarez-@student.42Urduliz.co    +#+  +:+       +#+        */
+/*   By: jesus <jesus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 21:14:36 by jsuarez-          #+#    #+#             */
-/*   Updated: 2023/05/23 21:14:36 by jsuarez-         ###   ########.fr       */
+/*   Updated: 2023/06/04 17:56:53 by jesus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,16 @@
 Dependencies: ft_strlen, ft_strchr, ft_strlcpy*/
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char	*offset;
-	char	*end;
-	char	*trimmed;
+	unsigned int	start;
+	unsigned int	end;
 
-	end = (char *)s1 + ft_strlen(s1);
-	offset = (char *)s1;
-	while (offset <= end)
-	{
-		if (ft_strchr(set, *offset) == 0)
-			break ;
-		offset++;
-	}
-	while (offset <= end)
-	{
-		if (ft_strchr(set, *end) == 0)
-			break ;
+	if (!s1 || !set)
+		return (NULL);
+	start = 0;
+	while (s1[start] != '\0' && ft_strchr(set, s1[start]))
+		start++;
+	end = ft_strlen(s1);
+	while (end > 0 && ft_strchr(set, s1[end]))
 		end--;
-	}
-	trimmed = (char *)malloc(end - offset + 2);
-	if (trimmed != 0)
-	{
-		if (ft_strlcpy(trimmed, offset, end - offset + 1) > 0)
-			return (trimmed);
-	}
-	return ((void *)0);
+	return (ft_substr((s1 + start), 0, (end - start + 1)));
 }

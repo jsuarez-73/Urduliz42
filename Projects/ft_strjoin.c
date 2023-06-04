@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsuarez- <jsuarez-@student.42Urduliz.co    +#+  +:+       +#+        */
+/*   By: jesus <jesus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 20:31:27 by jsuarez-          #+#    #+#             */
-/*   Updated: 2023/05/23 20:31:27 by jsuarez-         ###   ########.fr       */
+/*   Updated: 2023/06/04 17:56:04 by jesus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,16 @@
 Dependencies: ft_strlen*/
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*joined;
-	size_t	s1_len;
-	size_t	s2_len;
-	size_t	total_len;
-	size_t	limit;
+	char	*join;
+	size_t	len;
 
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	total_len = (s1_len--) + (s2_len) + 1;
-	limit = total_len - (s2_len--) - 1;
-	joined = (char *)malloc(total_len);
-	if (joined != 0)
-	{
-		*(joined + total_len--) = '\0';
-		while (total_len--)
-		{
-			if (total_len >= limit)
-				*(joined + total_len) = *(s2 + s2_len--);
-			else
-				*(joined + total_len) = *(s1 + s1_len--);
-		}
-		return (joined);
-	}
-	return ((void *)0);
+	if (!s1 || !s2)
+		return (NULL);
+	len = (ft_strlen(s1) + ft_strlen(s2) + 1);
+	join = ft_calloc(len, sizeof(char));
+	if (!join)
+		return (NULL);
+	ft_memcpy(join, s1, ft_strlen(s1) + 1);
+	ft_strlcpy(join + ft_strlen(s1), s2, len);
+	return (join);
 }

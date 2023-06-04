@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsuarez- <jsuarez-@student.42Urduliz.co    +#+  +:+       +#+        */
+/*   By: jesus <jesus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 20:34:49 by jsuarez-          #+#    #+#             */
-/*   Updated: 2023/05/30 20:34:49 by jsuarez-         ###   ########.fr       */
+/*   Updated: 2023/06/04 18:26:31 by jesus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,9 @@
 /*Verified*/
 t_list	*ft_lstlast(t_list *lst)
 {
-	if (lst != 0)
-	{
-		while (lst->next != 0)
-		{
-			lst = lst->next;
-		}
-		return (lst);
-	}
-	return ((t_list *)0);
+	if (!lst)
+		return (NULL);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
 }

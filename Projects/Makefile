@@ -3,15 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jsuarez- <jsuarez-@student.42Urduliz.co    +#+  +:+       +#+         #
+#    By: jesus <jesus@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/04 11:20:59 by jsuarez-          #+#    #+#              #
-#    Updated: 2023/06/04 11:20:59 by jsuarez-         ###   ########.fr        #
+#    Updated: 2023/06/04 17:33:39 by jesus            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
+
 CFLAGS = -Wall -Werror -Wextra
+
 SRCS = ft_memset.c \
 		ft_bzero.c \
 		ft_memcpy.c \
@@ -46,7 +48,9 @@ SRCS = ft_memset.c \
 		ft_putstr_fd.c \
 		ft_putendl_fd.c \
 		ft_putnbr_fd.c \
+
 OBJS = $(SRCS:%.c=%.o)
+
 SRCS_BONUS = ft_lstnew_bonus.c	\
 			ft_lstadd_front_bonus.c	\
 			ft_lstadd_front_bonus.c	\
@@ -57,18 +61,25 @@ SRCS_BONUS = ft_lstnew_bonus.c	\
 			ft_lstclear_bonus.c	\
 			ft_lstiter_bonus.c	\
 			ft_lstmap_bonus.c \
+
 OBJS_BONUS = $(SRCS_BONUS:%.c=%.o)
+
 $(NAME):
 		gcc $(FLAGS) -c $(SRCS)
 		ar rc $(NAME) $(OBJS)
+
 all: $(NAME)
+
 clean:
 		rm -f $(OBJS) $(OBJS_BONUS)
-fclean:
+
+fclean: clean
 		rm -f $(NAME)
-re:
-		fclean all
+
+re: fclean all
+
 bonus:
 		gcc $(FLAGS) -c $(SRCS_BONUS)
 		ar rc $(NAME) $(OBJS_BONUS)
+		
 .PHONY: all clean fclean re

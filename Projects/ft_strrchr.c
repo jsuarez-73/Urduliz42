@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsuarez- <jsuarez-@student.42Urduliz.co    +#+  +:+       +#+        */
+/*   By: jesus <jesus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 17:57:27 by jsuarez-          #+#    #+#             */
-/*   Updated: 2023/05/15 17:57:27 by jsuarez-         ###   ########.fr       */
+/*   Updated: 2023/06/04 17:50:41 by jesus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,14 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	char	*l_found;
-	size_t	counter;
+	int	idx;
 
-	counter = 0;
-	while (*s != '\0')
+	idx = ft_strlen(s);
+	while (idx >= 0)
 	{
-		if (*s == (char)c)
-		{
-			l_found = (char *)s;
-		}
-		counter++;
-		s++;
+		if (s[idx] == (unsigned char)c)
+			return ((char *)(s + idx));
+		idx--;
 	}
-
-	if (l_found != (void *)0)
-	{
-		return (l_found);
-	}
-	return ((void *)0);
+	return (NULL);
 }

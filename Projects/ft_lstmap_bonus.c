@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsuarez- <jsuarez-@student.42Urduliz.co    +#+  +:+       +#+        */
+/*   By: jesus <jesus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 16:35:47 by jsuarez-          #+#    #+#             */
-/*   Updated: 2023/06/01 16:35:47 by jsuarez-         ###   ########.fr       */
+/*   Updated: 2023/06/04 18:02:40 by jesus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,23 @@
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*new_lst;
-	int		counter;
+	t_list	*element;
+	void	*tmp;
 
-	counter = 0;
-	new_lst = (t_list *)malloc(sizeof(t_list) * ft_lstsize(lst));
-	if (new_lst != 0 && f != 0 && del != 0)
+	if (!lst || !f || !del)
+		return (NULL);
+	new_lst = NULL;
+	while (lst != NULL)
 	{
-		while (lst != 0)
+		tmp = f(lst->content);
+		element = ft_lstnew(tmp);
+		if (!element)
 		{
-			(new_lst + counter)->content = f(lst->content);
-			if (lst->next == 0)
-			{
-				(new_lst + counter)->next = 0;
-			}
-			else
-			{
-				(new_lst + counter)->next = (new_lst + counter + 1);
-			}
-			del(lst->content);
-			lst = lst->next;
-			counter++;
+			free(tmp);
+			ft_lstclear(&element, del);
 		}
-		return (new_lst);
+		ft_lstadd_back(&new_lst, element);
+		lst = lst->next;
 	}
-	return ((t_list *)0);
+	return (new_lst);
 }

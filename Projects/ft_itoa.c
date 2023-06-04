@@ -3,65 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsuarez- <jsuarez-@student.42Urduliz.co    +#+  +:+       +#+        */
+/*   By: jesus <jesus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 22:17:13 by jsuarez-          #+#    #+#             */
-/*   Updated: 2023/05/28 22:17:13 by jsuarez-         ###   ########.fr       */
+/*   Updated: 2023/06/04 17:58:51 by jesus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 /*Verified*/
-char	*ft_itoa(int n)
+static size_t	ft_numlen(int num)
 {
-	char		*digits;
-	size_t		n_len;
-	short int	sign;
-
-	n_len = ft_numlen(n);
-	sign = 0;
-	if (n < 0)
-	{
-		n_len += 1;
-		n = ~n + 1;
-		sign = 1;
-	}
-	digits = (char *)malloc(sizeof(char) * (n_len + 1));
-	if (digits != 0)
-	{
-		ft_makedigits(&digits, &n_len, n, sign);
-		return (digits);
-	}
-	return ((char *)0);
-}
-
-static void	ft_makedigits(char **digits, size_t *n_len, int n, short int sign)
-{
-	*(*digits + (*n_len)-- + 1) = '\0';
-	while (n != 0)
-	{
-		*(*digits + (*n_len)--) = '0' + (n % 10);
-		n -= n % 10;
-		n /= 10;
-	}
-	if (sign == 1)
-		*(*digits + *n_len) = '-';
-}
-
-static size_t	ft_numlen(int n)
-{
-	size_t	len;
+	int	len;
 
 	len = 0;
-	if (n == 0)
-		return (1);
-	if (n < 0)
-		n = ~n + 1;
-	while (n != 0)
+	if (num <= 0)
+		len++;
+	while (num != 0)
 	{
-		n -= n % 10;
-		n /= 10;
+		num = num / 10;
 		len++;
 	}
 	return (len);
+}
+
+char	*ft_itoa(int n)
+{
+	int		n_len;
+	long	num;
+	char	*str;
+
+	n_len = ft_numlen(n);
+	num = n;
+	str = (char *)ft_calloc(n_len + 1, sizeof(char));
+	if (!str)
+		return (NULL);
+	if (num < 0)
+	{
+		str[0] = '-';
+		num = -num;
+	}
+	if (num == 0)
+		str[0] = '0';
+	str[n_len--] = '\0';
+	while (num != 0)
+	{
+		str[n_len] = num % 10 + '0';
+		n_len--;
+		num = num / 10;
+	}
+	return (str);
 }

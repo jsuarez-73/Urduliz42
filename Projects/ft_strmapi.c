@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsuarez- <jsuarez-@student.42Urduliz.co    +#+  +:+       +#+        */
+/*   By: jesus <jesus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 14:54:00 by jsuarez-          #+#    #+#             */
-/*   Updated: 2023/05/29 14:54:00 by jsuarez-         ###   ########.fr       */
+/*   Updated: 2023/06/04 17:59:28 by jesus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,22 @@
 Dependencies: ft_strlen*/
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	size_t	s_len;
-	char	**strmapped;
+	char			*str;
+	size_t			len;
+	unsigned int	idx;
 
-	s_len = ft_strlen(s) + 1;
-	strmapped = (char *)malloc(sizeof(char) * (s_len));
-	if (strmapped != 0)
+	if (!s || !f)
+		return (NULL);
+	len = ft_strlen(s);
+	str = (char *)ft_calloc(len + 1, sizeof(char));
+	if (!str)
+		return (NULL);
+	idx = 0;
+	while (s[idx] != '\0')
 	{
-		*(strmapped + s_len) = '\0';
-		while (s_len--)
-		{
-			*(strmapped + s_len) = f(s_len, *(s + s_len));
-			s_len--;
-		}
-		return (strmapped);
+		str[idx] = f(idx, s[idx]);
+		idx++;
 	}
-	return ((char *)0);
+	str[idx] = '\0';
+	return (str);
 }
