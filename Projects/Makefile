@@ -6,7 +6,7 @@
 #    By: jsuarez- <jsuarez-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/04 11:20:59 by jsuarez-          #+#    #+#              #
-#    Updated: 2023/06/06 12:40:32 by jsuarez-         ###   ########.fr        #
+#    Updated: 2023/06/06 13:14:12 by jsuarez-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ SRCS_BONUS = ft_lstnew_bonus.c	\
 OBJS_BONUS = $(SRCS_BONUS:%.c=%.o)
 
 $(NAME):
-		gcc $(CFLAGS) -c $(SRCS)
+		cc $(CFLAGS) -c $(SRCS)
 		ar rc $(NAME) $(OBJS)
 
 all: $(NAME)
@@ -79,7 +79,7 @@ fclean: clean
 re: fclean all
 
 bonus:
-		gcc $(CFLAGS) -c $(SRCS_BONUS)
+		cc $(CFLAGS) -c $(SRCS_BONUS)
 		ar rc $(NAME) $(OBJS_BONUS)
 		
 .PHONY: all clean fclean bonus re
