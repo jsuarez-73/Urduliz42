@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jesus <jesus@student.42.fr>                +#+  +:+       +#+         #
+#    By: jsuarez- <jsuarez-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/04 11:20:59 by jsuarez-          #+#    #+#              #
-#    Updated: 2023/06/04 17:33:39 by jesus            ###   ########.fr        #
+#    Updated: 2023/06/06 12:40:32 by jsuarez-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ SRCS_BONUS = ft_lstnew_bonus.c	\
 OBJS_BONUS = $(SRCS_BONUS:%.c=%.o)
 
 $(NAME):
-		gcc $(FLAGS) -c $(SRCS)
+		gcc $(CFLAGS) -c $(SRCS)
 		ar rc $(NAME) $(OBJS)
 
 all: $(NAME)
@@ -79,7 +79,7 @@ fclean: clean
 re: fclean all
 
 bonus:
-		gcc $(FLAGS) -c $(SRCS_BONUS)
+		gcc $(CFLAGS) -c $(SRCS_BONUS)
 		ar rc $(NAME) $(OBJS_BONUS)
 		
-.PHONY: all clean fclean re
+.PHONY: all clean fclean bonus re
